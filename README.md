@@ -2,6 +2,11 @@ Spring Boot User Management API
 
 A production-style Spring Boot REST API for managing users, built to demonstrate clean backend architecture, pagination, sorting, validation, DTO mapping, and centralized exception handling.
 
+![Java](https://img.shields.io/badge/Java-21-orange)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.x-brightgreen)
+![REST API](https://img.shields.io/badge/API-REST-blue)
+![Backend](https://img.shields.io/badge/Type-Backend-informational)
+
 --------------------------------------------------
 
 FEATURES
