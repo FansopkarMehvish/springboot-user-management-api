@@ -1,37 +1,78 @@
 Spring Boot User Management API
 
-A production-style Spring Boot REST API for managing users, built to demonstrate clean backend architecture, pagination, sorting, validation, DTO mapping, and centralized exception handling.
-
 ![Java](https://img.shields.io/badge/Java-21-orange)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.x-brightgreen)
 ![REST API](https://img.shields.io/badge/API-REST-blue)
 ![Backend](https://img.shields.io/badge/Type-Backend-informational)
 
 --------------------------------------------------
+# Spring Boot User Management API
 
-FEATURES
+A production-style Spring Boot REST API for managing users, built to demonstrate clean backend architecture, pagination, sorting, validation, DTO mapping, centralized exception handling, and JWT-based security.
 
-- Create user with validation and duplicate email check
-- Fetch users with pagination and dynamic sorting
-- Fetch user by email
-- Centralized global exception handling
-- DTO-based request and response model
-- Entity-to-DTO mapping using MapStruct
-- Database indexing for performance and data integrity
+Java Spring Boot REST API Backend
 
---------------------------------------------------
+---
 
-TECH STACK
+## FEATURES
 
-- Java
-- Spring Boot
-- Spring Data JPA
-- Hibernate
-- MapStruct
-- MySQL 
-- Maven
+- Create user with validation and duplicate email check  
+- Fetch users with pagination and dynamic sorting  
+- Fetch user by email  
+- Centralized global exception handling  
+- DTO-based request and response model  
+- Entity-to-DTO mapping using MapStruct  
+- Database indexing for performance and data integrity  
+- Stateless JWT-based authentication and role-based authorization  
 
---------------------------------------------------
+---
+
+## TECH STACK
+
+- Java  
+- Spring Boot  
+- Spring Data JPA  
+- Spring Security  
+- Hibernate  
+- MapStruct  
+- MySQL  
+- Maven  
+
+---
+
+## SECURITY & AUTHORIZATION
+
+The API is secured using **stateless JWT (JSON Web Token) authentication** and **URL-level role-based access control**.
+
+### Authentication
+- Users authenticate via a login endpoint and receive a JWT
+- Each request must include the token in the `Authorization` header.
+- The application is fully stateless (`SessionCreationPolicy.STATELESS`)
+
+### Authorization
+- Role-based access control is enforced at the **URL level** using Spring Security request matchers
+- Roles supported:
+- `ADMIN`
+- `CUSTOMER`
+
+### Access Rules
+| Endpoint | Role Required |
+|--------|---------------|
+| POST /api/users | ADMIN |
+| GET /api/users | ADMIN |
+| GET /api/users/{email} | ADMIN, CUSTOMER |
+
+### HTTP Status Code Behavior
+- **401 Unauthorized**
+- Missing token
+- Invalid token
+- Insufficient privileges (design choice for stateless JWT)
+- **200 OK**
+- Valid token with sufficient role
+
+> Note: For JWT-based stateless APIs, returning HTTP 401 for all unauthorized access is an intentional design choice to simplify client behavior and avoid leaking authorization details.
+
+-----------------------------------------------------
 
 API ENDPOINTS
 
@@ -95,6 +136,9 @@ DESIGN HIGHLIGHTS
 - Centralized Exception Handling
   Keeps controllers clean and ensures consistent error responses
 
+- Stateless Security Design
+  JWT-based authentication with no server-side session state
+
 --------------------------------------------------
 
 PROJECT STRUCTURE
@@ -104,6 +148,7 @@ service
 repository
 dto
 model
+security
 exception
 
 --------------------------------------------------
