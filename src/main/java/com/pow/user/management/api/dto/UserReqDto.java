@@ -16,6 +16,9 @@ public class UserReqDto {
     @NotBlank(message = "Email should not be blank")
     private String email;
 
+    @NotBlank(message = "Password is required")
+    private String password;
+
     @NotNull(message = "Role should not be null")
     private Role role;
 }
